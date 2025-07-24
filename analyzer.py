@@ -6,9 +6,9 @@ import tiktoken # pip install tiktoken
 
 #Load Dataset:
 
-path = r"C:\Users\addpe\.cache\kagglehub\datasets\datafiniti\consumer-reviews-of-amazon-products\versions\5\1429_1.csv"
+path = "data.csv" 
 df = pd.read_csv(path)
-reviews = df["reviews.text"].dropna().iloc[:200].tolist()
+reviews = df["reviews.text"].iloc[:200].tolist()
 
 
 
@@ -38,9 +38,8 @@ sent_input_tokens = estimate_tokens(sentiment_prompt)
 client = genai.Client()
 
 response = client.models.generate_content(model="gemini-2.5-flash", contents=sentiment_prompt)
-print(response.text)
 clean_json = re.sub(r"^```json\s*|\s*```$", "", response.text.strip(), flags=re.MULTILINE)
-print(clean_json)
+
 data = json.loads(clean_json)
 
 sent_output_text = response.text.strip()
