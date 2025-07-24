@@ -10,13 +10,11 @@ import os
 
 os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
 
-
 #Load Dataset:
 
 path = "data.csv" 
 df = pd.read_csv(path)
 reviews = df["reviews.text"].iloc[:200].tolist()
-
 
 
 #Tokenizer and Pricing:
@@ -53,7 +51,7 @@ sent_output_text = response.text.strip()
 sent_output_tokens = estimate_tokens(sent_output_text)
 
 avg = sum(int(num) for num in data) / len(data)
-print("Sentiment Score:", avg)
+st.write("Sentiment Score:", avg)
 
 # Summary Generation:
 
@@ -75,14 +73,14 @@ total_output_tokens = sent_output_tokens + summary_output_tokens
 cost_nano = estimate_cost("gpt-4.1-nano", total_input_tokens, total_output_tokens)
 cost_mini = estimate_cost("gpt-4.1-mini", total_input_tokens, total_output_tokens)
 
-print("Token & Cost Summary:")
-print("Input Tokens:", total_input_tokens)
-print("Output Tokens:", total_output_tokens)
-print("GPT-4.1 Nano Cost: $", round(cost_nano, 4))
-print("GPT-4.1 Mini Cost: $", round(cost_mini, 4))
+st.write("Token & Cost Summary:")
+st.write("Input Tokens:", total_input_tokens)
+st.write("Output Tokens:", total_output_tokens)
+st.write("GPT-4.1 Nano Cost: $", round(cost_nano, 4))
+st.write("GPT-4.1 Mini Cost: $", round(cost_mini, 4))
 
 
 
 # Summary Report:
 
-print(summary_output_text)
+st.write(summary_output_text)
