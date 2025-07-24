@@ -3,6 +3,13 @@ import pandas as pd
 import re
 import json
 import tiktoken # pip install tiktoken
+import streamlit as st
+import os
+
+#Set Environment Variables
+
+os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+
 
 #Load Dataset:
 
